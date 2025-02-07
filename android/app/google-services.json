@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598952976404",
+    "project_id": "lestary-laundry-apps",
+    "storage_bucket": "lestary-laundry-apps.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598952976404:android:ae2204d26b811f0ffec701",
+        "android_client_info": {
+          "package_name": "com.example.lestary_laundry_apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdwtRzU7YsP39vEizeL8IdNdNbwC5B7YM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
