@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:lestary_laundry_apps/screen/auth/register_screen.dart';
-import 'package:lestary_laundry_apps/screen/main_screen.dart';
+import 'package:lestary_laundry_apps/screen/auth/login_screen.dart';
 import 'package:lestary_laundry_apps/services/auth_service.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   bool isPasswordHidden = true;
   bool isLoading = false;
 
   final AuthService _authService = AuthService();
 
-  void login() async {
+  void register() async {
     setState(() {
       isLoading = true;
     });
 
-    String? result = await _authService.login(
-        email: _emailController.text, password: _passwordController.text);
+    String? result = await _authService.register(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        role: 'user');
 
     if (!mounted) return;
 
@@ -33,15 +36,15 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading = false;
     });
 
-    if (result == 'admin') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const AdminScreen()));
-    } else if (result == 'user') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const UserScreen()));
+    if (result == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Register Successful! Now Turn to Login')));
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const LoginScreen()));
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Login Failed $result')));
+          .showSnackBar(SnackBar(content: Text('Register Failed $result')));
     }
   }
 
@@ -66,6 +69,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 200,
                   width: 200,
                 ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(labelText: 'Name'),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Nama harus diisi'
+                        : null),
                 const SizedBox(
                   height: 15.0,
                 ),
@@ -108,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: login,
+                    onPressed: register,
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff5DB99A),
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0)))),
                     child: const Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -126,15 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't Have an Account? "),
+                    const Text("Already Have an Account? "),
                     TextButton(
                         onPressed: () {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => const RegisterScreen()));
+                                  builder: (_) => const LoginScreen()));
                         },
-                        child: const Text('Sign Up'))
+                        child: const Text('Sign In'))
                   ],
                 )
               ],
