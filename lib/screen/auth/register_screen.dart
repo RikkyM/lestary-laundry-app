@@ -24,8 +24,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       isLoading = true;
     });
 
+    String capitalizedName = _nameController.text.split(' ').map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+
+    _nameController.text = capitalizedName;
+
     String? result = await _authService.register(
-        name: _nameController.text,
+        name: capitalizedName,
         email: _emailController.text,
         password: _passwordController.text,
         role: 'user');

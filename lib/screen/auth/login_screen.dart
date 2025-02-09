@@ -34,11 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (result == 'admin') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const AdminScreen()));
+      Navigator.pushAndRemoveUntil(
+          context, MaterialPageRoute(builder: (_) => const AdminScreen()), (route) => false);
     } else if (result == 'user') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const UserScreen()));
+      Navigator.pushAndRemoveUntil(
+          context, MaterialPageRoute(builder: (_) => const UserScreen()), (route) => false);
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Login Failed $result')));
