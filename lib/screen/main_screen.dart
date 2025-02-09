@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lestary_laundry_apps/screen/admin/admin_homescreen.dart';
+import 'package:lestary_laundry_apps/screen/user/history_screen.dart';
+import 'package:lestary_laundry_apps/screen/user/user_homescreen.dart';
 import 'package:lestary_laundry_apps/screen/user/user_profilescreen.dart';
 
 // Main Admin Screen
@@ -48,8 +50,8 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [Text('Welcome, $name')],
+        title: const Column(
+          children: [Text('Welcome, Admin')],
         ),
       ),
       body: _screens[_selectedIndex],
@@ -124,14 +126,12 @@ class _UserScreenState extends State<UserScreen> {
           ],
         ),
         const Text('History'),
-        const Text('Notification'),
         const Text('Profile'),
       ];
 
   static final List<Widget> _screens = [
-    const Center(child: Text('Home')),
-    const Center(child: Text('History')),
-    const Center(child: Text('Notification')),
+    const UserHomescreen(),
+    const HistoryScreen(),
     const UserProfilescreen(),
   ];
 
@@ -172,13 +172,11 @@ class _UserScreenState extends State<UserScreen> {
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
               tabs: const [
                 GButton(icon: Icons.home, text: 'Home'),
                 GButton(icon: Icons.list_alt, text: 'History'),
-                GButton(icon: Icons.notifications, text: 'Notification'),
-                GButton(icon: Icons.person, text: 'Home'),
+                GButton(icon: Icons.person, text: 'Profile'),
               ],
               selectedIndex: _selectedIndex,
               onTabChange: (index) {
