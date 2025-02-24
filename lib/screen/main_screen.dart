@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lestary_laundry_apps/screen/admin/admin_homescreen.dart';
+import 'package:lestary_laundry_apps/screen/admin/admin_profilescreen.dart';
+import 'package:lestary_laundry_apps/screen/admin/order_screen.dart';
 import 'package:lestary_laundry_apps/screen/user/history_screen.dart';
 import 'package:lestary_laundry_apps/screen/user/user_homescreen.dart';
 import 'package:lestary_laundry_apps/screen/user/user_profilescreen.dart';
@@ -27,9 +29,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   static final List<Widget> _screens = [
     const AdminHomescreen(),
-    const Center(child: Text('History')),
-    const Center(child: Text('Notification')),
-    const Center(child: Text('Profile')),
+    const OrderScreen(),
+    const AdminProfileScreen(),
   ];
 
   void getCurrentUser() async {
@@ -51,7 +52,7 @@ class _AdminScreenState extends State<AdminScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Column(
-          children: [Text('Welcome, Admin')],
+          children: [Text('Admin Dashboard')],
         ),
       ),
       body: _screens[_selectedIndex],
@@ -74,8 +75,7 @@ class _AdminScreenState extends State<AdminScreen> {
             color: Colors.black,
             tabs: const [
               GButton(icon: Icons.home, text: 'Home'),
-              GButton(icon: Icons.list_alt, text: 'History'),
-              GButton(icon: Icons.notifications, text: 'Notification'),
+              GButton(icon: Icons.receipt, text: 'Order'),
               GButton(icon: Icons.person, text: 'Profile'),
             ],
             selectedIndex: _selectedIndex,
@@ -132,7 +132,7 @@ class _UserScreenState extends State<UserScreen> {
   static final List<Widget> _screens = [
     const UserHomescreen(),
     const HistoryScreen(),
-    const UserProfilescreen(),
+    const UserProfileScreen(),
   ];
 
   void getCurrentUser() async {

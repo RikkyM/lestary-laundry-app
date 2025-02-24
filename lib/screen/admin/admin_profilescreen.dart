@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:lestary_laundry_apps/screen/auth/login_screen.dart';
 import 'package:lestary_laundry_apps/services/auth_service.dart';
 
-class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+class AdminProfileScreen extends StatefulWidget {
+  const AdminProfileScreen({super.key});
 
   @override
-  State<UserProfileScreen> createState() => _UserProfileScreenState();
+  State<AdminProfileScreen> createState() => _AdminProfileScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _AdminProfileScreenState extends State<AdminProfileScreen> {
   String name = '';
   String email = '';
 
@@ -20,10 +20,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
+    getCurrentAdmin();
   }
 
-  void getCurrentUser() async {
+  void getCurrentAdmin() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       DocumentSnapshot userData = await FirebaseFirestore.instance
@@ -32,7 +32,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           .get();
 
       setState(() {
-        name = userData['name'] ?? 'Pengguna';
+        name = userData['name'] ?? 'Admin';
         email = user.email ?? 'Tidak ada email';
       });
     }
@@ -79,7 +79,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Informasi Pengguna
+              // Informasi Admin
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
